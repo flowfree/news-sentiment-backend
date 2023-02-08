@@ -15,7 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
+
+class HomeView(APIView):
+    def get(self, request, *args, **kwargs):
+        return Response({'message': 'API is up and running.'})
+
 
 urlpatterns = [
+    path('', HomeView.as_view()),
     path('admin/', admin.site.urls),
 ]
