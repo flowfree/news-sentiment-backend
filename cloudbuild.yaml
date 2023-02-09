@@ -47,4 +47,4 @@ substitutions:
   _SECRET_SETTINGS_NAME: news-sentiment-backend-env
 
 images:
-  - "asia.gcr.io/${PROJECT_ID}/${_SERVICE_NAME}"
+  - "gcr.io/${PROJECT_ID}/${_SERVICE_NAME}"
