@@ -19,9 +19,6 @@ from django.conf import settings
 from django.utils import timezone
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.routers import SimpleRouter
-
-from training_data.views import SiteViewSet, NewsViewSet
 
 
 class HomeView(APIView):
@@ -32,13 +29,8 @@ class HomeView(APIView):
         })
 
 
-router = SimpleRouter(trailing_slash=False)
-router.register('sites', SiteViewSet)
-router.register('news', NewsViewSet)
-
-
 urlpatterns = [
     path('', HomeView.as_view()),
-    path('', include(router.urls)),
+    path('training-data/', include('training_data.urls')),
     path('admin/', admin.site.urls),
 ]
