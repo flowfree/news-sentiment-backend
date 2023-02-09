@@ -14,11 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf import settings
 from django.utils import timezone
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.routers import SimpleRouter
+
+from news.views import SiteViewSet, NewsViewSet
 
 
 class HomeView(APIView):
@@ -29,7 +32,13 @@ class HomeView(APIView):
         })
 
 
+router = SimpleRouter(trailing_slash=False)
+router.register('sites', SiteViewSet)
+router.register('news', NewsViewSet)
+
+
 urlpatterns = [
     path('', HomeView.as_view()),
+    path('', include(router.urls)),
     path('admin/', admin.site.urls),
 ]
