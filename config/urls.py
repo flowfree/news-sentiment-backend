@@ -21,7 +21,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.routers import SimpleRouter
 
-from news.views import SiteViewSet, NewsViewSet
+from training_data.views import SiteViewSet, NewsViewSet
 
 
 class HomeView(APIView):

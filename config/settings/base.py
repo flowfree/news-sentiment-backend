@@ -62,7 +62,7 @@ INSTALLED_APPS = [
     'sslserver',
     'rest_framework',
     'accounts',
-    'news',
+    'training_data',
 ]
 
 MIDDLEWARE = [
