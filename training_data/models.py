@@ -22,10 +22,8 @@ class News(models.Model):
         NEGATIVE = ('negative', 'negative')
 
     url = models.URLField()
-    title = models.CharField(max_length=512)
-    description = models.CharField(max_length=750,
-                                   blank=True,
-                                   null=True)
+    title = models.CharField(max_length=512, blank=True, null=True)
+    description = models.CharField(max_length=750, blank=True, null=True)
     sentiment = models.CharField(max_length=15, 
                                  blank=True,
                                  null=True,
