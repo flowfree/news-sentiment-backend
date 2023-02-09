@@ -15,13 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.utils import timezone
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
 
 class HomeView(APIView):
     def get(self, request, *args, **kwargs):
-        return Response({'message': 'API is up and running.'})
+        return Response({
+            'quote': settings.SAMPLE_QUOTE,
+            'time': timezone.now().isoformat()
+        })
 
 
 urlpatterns = [
