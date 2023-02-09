@@ -11,7 +11,12 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import io
+import os
+
 import environ 
+import google.auth
+from google.cloud import secretmanager
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,7 +25,25 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 env = environ.Env(
     DEBUG=(bool, False)
 )
-env.read_env(BASE_DIR / '.env')
+
+env_file = BASE_DIR / '.env'
+
+# Attempt to load the Project ID into the environment, safely failing on error.
+try:
+    _, os.environ["GOOGLE_CLOUD_PROJECT"] = google.auth.default()
+except google.auth.exceptions.DefaultCredentialsError:
+    pass
+
+if os.path.isfile(env_file):
+    env.read_env(env_file)
+elif os.environ.get('GOOGLE_CLOUD_PROJECT'):
+    project_id = os.environ['GOOGLE_CLOUD_PROJECT']
+    client = secretmanager.SecretManagerServiceClient()
+    name = f'projects/{project_id}/secrets/news-sentiment-backend-env/versions/latest'
+    payload = client.access_secret_version(name=name).payload.data.decode('utf-8')
+    env.read_env(io.StringIO(payload))
+else:
+    raise Exception('No local .env or GOOGLE_CLOUD_PROJECT detected. No secrets found.')
 
 
 # Quick-start development settings - unsuitable for production
