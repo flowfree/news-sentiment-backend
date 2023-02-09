@@ -1,0 +1,50 @@
+steps:
+  - id: "Build image"
+    name: "gcr.io/cloud-builders/docker"
+    args: 
+      [
+        "build", 
+        "-t", "gcr.io/${PROJECT_ID}/${_SERVICE_NAME}", "."
+      ]
+
+  - id: "Push image"
+    name: "gcr.io/cloud-builders/docker"
+    args: 
+      [
+        "push", 
+        "gcr.io/${PROJECT_ID}/${_SERVICE_NAME}",
+      ]
+
+  - id: "Apply migrations"
+    name: "gcr.io/google-appengine/exec-wrapper"
+    args:
+      [
+        "-i", "gcr.io/${PROJECT_ID}/${_SERVICE_NAME}",
+        "-e", "SETTINGS_NAME=${_SECRET_SETTINGS_NAME}",
+        "--",
+        "python",
+        "manage.py",
+        "migrate",
+      ]
+
+  - id: "Deploy to Cloud Run"
+    name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      [
+        "run",
+        "deploy", "${_SERVICE_NAME}",
+        "--platform", "managed",
+        "--region", "us-central1",
+        "--image", "gcr.io/${PROJECT_ID}/${_SERVICE_NAME}"
+      ]
+
+
+substitutions:
+  _INSTANCE_NAME: postgresql
+  _REGION: us-west2
+  _SERVICE_NAME: news-sentiment-backend
+  _SECRET_SETTINGS_NAME: news-sentiment-backend-env
+
+images:
+  - "asia.gcr.io/${PROJECT_ID}/${_SERVICE_NAME}"
