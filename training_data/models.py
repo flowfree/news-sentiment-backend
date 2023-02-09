@@ -12,6 +12,10 @@ class Site(models.Model):
 
 
 class News(models.Model):
+    class Meta:
+        verbose_name = 'news'
+        verbose_name_plural = 'news'
+
     class Sentiment(models.TextChoices):
         POSITIVE = ('positive', 'positive')
         NEUTRAL = ('neutral', 'neutral')
@@ -26,6 +30,7 @@ class News(models.Model):
                                  blank=True,
                                  null=True,
                                  choices=Sentiment.choices)
+    site = models.ForeignKey(Site, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
