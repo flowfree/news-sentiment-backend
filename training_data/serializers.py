@@ -26,4 +26,4 @@ class NewsSerializer(ModelSerializer):
     class Meta:
         model = News
         fields = ['id', 'url', 'site', 'title', 'description', 
-                  'sentiment', 'created_at', 'updated_at']
+                  'image_url', 'sentiment', 'created_at', 'updated_at']

@@ -6,9 +6,10 @@ from .exceptions import ScraperError
 
 def get_metadata_from_url(url: str) -> dict:
     meta = {
+        'url': url,
         'title': '',
         'description': '',
-        'url': url,
+        'image_url': '',
     }
 
     try:
@@ -29,6 +30,12 @@ def get_metadata_from_url(url: str) -> dict:
         elem = tree.xpath('//head/meta[@name="description"]')
         meta['description'] = elem[0].attrib['content']
     except Exception: 
-        raise ScraperError('Failed extracting metadata')
+        pass
+
+    try:
+        elem = tree.xpath('//head/meta[@property="og:image"]')
+        meta['image_url'] = elem[0].attrib['content']
+    except Exception: 
+        pass
 
     return meta

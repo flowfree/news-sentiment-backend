@@ -28,6 +28,7 @@ class News(models.Model):
     url = models.URLField()
     title = models.CharField(max_length=512, blank=True, null=True)
     description = models.CharField(max_length=750, blank=True, null=True)
+    image_url = models.URLField(blank=True, null=True)
     sentiment = models.CharField(max_length=15, 
                                  blank=True,
                                  null=True,
@@ -46,6 +47,7 @@ class News(models.Model):
             meta = scraper.get_metadata_from_url(self.url)
             self.title = meta.get('title', '')
             self.description = meta.get('description', '')
+            self.image_url = meta.get('image_url', '')
 
         return super().save(*args, **kwargs)
 
