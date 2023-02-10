@@ -1,4 +1,8 @@
+from urllib.parse import urlsplit 
+
 from django.db import models
+
+from . import scraper
 
 
 class Site(models.Model):
@@ -34,3 +38,21 @@ class News(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs) -> None:
+        if not self.title and not self.description:
+            self.site = self._get_site(self.url)
+
+            meta = scraper.get_metadata_from_url(self.url)
+            self.title = meta.get('title', '')
+            self.description = meta.get('description', '')
+
+        return super().save(*args, **kwargs)
+
+    def _get_site(self, url: str) -> Site:
+        parsed_url = urlsplit(url)
+        site_url = f'{parsed_url.scheme}://{parsed_url.hostname}'
+        try:
+            return Site.objects.get(url__startswith=site_url)
+        except Site.DoesNotExist:
+            raise ValueError('Site not supported yet.')

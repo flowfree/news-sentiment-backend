@@ -8,7 +8,7 @@ WORKDIR $APP_HOME
 
 COPY requirements.txt .
 RUN apt update -y && \
-    apt install -y libpq-dev gcc python3-dev && \
+    apt install -y libpq-dev gcc python3-dev python3-lxml && \
     pip install --no-cache-dir -r requirements.txt 
 
 COPY . .
