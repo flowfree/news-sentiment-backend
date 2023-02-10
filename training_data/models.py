@@ -25,7 +25,7 @@ class News(models.Model):
         NEUTRAL = ('neutral', 'neutral')
         NEGATIVE = ('negative', 'negative')
 
-    url = models.URLField()
+    url = models.URLField(unique=True)
     title = models.CharField(max_length=512, blank=True, null=True)
     description = models.CharField(max_length=750, blank=True, null=True)
     image_url = models.URLField(blank=True, null=True)
