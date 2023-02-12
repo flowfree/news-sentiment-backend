@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class TrainingDataConfig(AppConfig):
-    name = 'training_data'
-    verbose_name = 'Training Data'
+    name = 'data_labeling'
+    verbose_name = 'Data Labeling'

@@ -31,6 +31,6 @@ class HomeView(APIView):
 
 urlpatterns = [
     path('', HomeView.as_view()),
-    path('training-data/', include('training_data.urls')),
+    path('training-data/', include('data_labeling.urls')),
     path('admin/', admin.site.urls),
 ]

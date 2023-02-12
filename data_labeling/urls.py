@@ -1,6 +1,6 @@
 from rest_framework.routers import SimpleRouter
 
-from training_data.views import SiteViewSet, NewsViewSet
+from data_labeling.views import SiteViewSet, NewsViewSet
 
 
 router = SimpleRouter(trailing_slash=False)
