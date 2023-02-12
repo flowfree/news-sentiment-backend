@@ -6,7 +6,7 @@ from django.db import migrations
 SITE_INITIAL_DATA = [
     ('CoinDesk', 'https://www.coindesk.com'),
     ('Decrypt', 'https://decrypt.co'),
-    ('Cointelegraph', '	https://cointelegraph.com'),
+    ('Cointelegraph', 'https://cointelegraph.com'),
     ('CryptoDaily', 'https://cryptodaily.co.uk'),
     ('U.Today', 'https://u.today'),
     ('CoinMarketCap', 'https://coinmarketcap.com/headlines/news'),
