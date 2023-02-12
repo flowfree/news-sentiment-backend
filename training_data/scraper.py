@@ -18,7 +18,7 @@ def get_metadata_from_url(url: str) -> dict:
     except requests.exceptions.HTTPError as e:
         raise ScraperError(e)
     
-    tree = etree.HTML(r.content)
+    tree = etree.HTML(r.text)
     
     try:
         elem = tree.xpath('//head/title')
