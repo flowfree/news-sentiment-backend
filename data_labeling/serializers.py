@@ -7,10 +7,10 @@ class SiteSerializer(ModelSerializer):
         model = Site
         fields = ['id', 'name', 'url', 'created_at', 'updated_at']
 
-    def __init__(self, instance=None, data=..., **kwargs):
+    def __init__(self, *args, **kwargs):
         fields = kwargs.pop('fields', None)
 
-        super().__init__(instance, data, **kwargs)
+        super().__init__(*args, **kwargs)
 
         if fields is not None:
             # Drop any fields that are not in the `fields` argument

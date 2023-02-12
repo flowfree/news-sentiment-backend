@@ -11,21 +11,22 @@ from .serializers import SiteSerializer, NewsSerializer
 from .exceptions import ScraperError
 
 
+if settings.DEBUG:
+    renderers = [CamelCaseJSONRenderer, CamelCaseBrowsableAPIRenderer]
+else:
+    renderers = [CamelCaseJSONRenderer]
+
+
 class SiteViewSet(ModelViewSet):
     queryset = Site.objects.all()
     serializer_class = SiteSerializer
+    renderer_classes = renderers
 
 
 class NewsViewSet(ModelViewSet):
     queryset = News.objects.all()
     serializer_class = NewsSerializer
-    renderer_classes = [CamelCaseJSONRenderer]
-
-    def __init__(self, *args, **kwargs):
-        if settings.DEBUG:
-            self.renderer_classes += [CamelCaseBrowsableAPIRenderer]
-
-        super().__init__(*args, **kwargs)
+    renderer_classes = renderers
 
     def create(self, request, *args, **kwargs):
         try:
