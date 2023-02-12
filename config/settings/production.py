@@ -22,3 +22,7 @@ REST_FRAMEWORK = {
         'djangorestframework_camel_case.parser.CamelCaseJSONParser',
     ]
 }
+
+CORS_ALLOWED_ORIGINS = [
+    # Add the production URLs here
+]
