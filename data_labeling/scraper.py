@@ -1,4 +1,4 @@
-from lxml import etree
+from bs4 import BeautifulSoup
 import requests 
 
 from .exceptions import ScraperError 
@@ -31,25 +31,20 @@ def get_metadata_from_url(url: str) -> dict:
         r.raise_for_status()
     except requests.exceptions.HTTPError as e:
         raise ScraperError(e)
-    
-    tree = etree.HTML(r.text)
-    
-    try:
-        elem = tree.xpath('//head/title')
-        meta['title'] = elem[0].text.strip()
-    except Exception: 
-        raise ScraperError('Failed extracting metadata')
 
+    soup = BeautifulSoup(r.text, "html.parser")
+
+    # Extract the title tag
     try:
-        elem = tree.xpath('//head/meta[@name="description"]')
-        meta['description'] = elem[0].attrib['content']
-    except Exception: 
+        meta['title'] = soup.find("title").string
+    except Exception:
         pass
 
-    try:
-        elem = tree.xpath('//head/meta[@property="og:image"]')
-        meta['image_url'] = elem[0].attrib['content']
-    except Exception: 
-        pass
+    # Extract the meta tags
+    for tag in soup.find_all('meta'):
+        if tag.get('name') == 'description':
+            meta['description'] = tag.get('content')
+        elif tag.get('property') == 'og:image':
+            meta['image_url'] = tag.get('content')
 
     return meta
