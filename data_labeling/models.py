@@ -34,6 +34,7 @@ class News(models.Model):
                                  null=True,
                                  choices=Sentiment.choices)
     site = models.ForeignKey(Site, on_delete=models.CASCADE)
+    published_time = models.DateTimeField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -48,6 +49,7 @@ class News(models.Model):
             self.title = meta.get('title', '')
             self.description = meta.get('description', '')
             self.image_url = meta.get('image_url', '')
+            self.published_time = meta.get('published_time')
 
         return super().save(*args, **kwargs)
 
