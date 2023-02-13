@@ -14,5 +14,5 @@ class SiteAdmin(admin.ModelAdmin):
 class NewsAdmin(admin.ModelAdmin):
     list_display = ['id', 'title', 'sentiment', 'site', 'created_at']
     fields = ['title', 'description', 'sentiment', 'site', 
-              'url', 'image_url', 'created_at', 'updated_at']
+              'url', 'image_url', 'published_time', 'created_at', 'updated_at']
     readonly_fields = ['url', 'image_url', 'created_at', 'updated_at']
