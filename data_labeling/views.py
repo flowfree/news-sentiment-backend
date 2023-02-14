@@ -25,7 +25,7 @@ class SiteViewSet(ModelViewSet):
 
 
 class NewsViewSet(ModelViewSet):
-    queryset = News.objects.all()
+    queryset = News.objects.all().order_by('-pk')
     serializer_class = NewsSerializer
     renderer_classes = renderers
     filter_backends = [DjangoFilterBackend]
