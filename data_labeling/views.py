@@ -1,4 +1,5 @@
 from django.conf import settings
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from djangorestframework_camel_case.render import (
@@ -27,6 +28,8 @@ class NewsViewSet(ModelViewSet):
     queryset = News.objects.all()
     serializer_class = NewsSerializer
     renderer_classes = renderers
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['site', 'sentiment']
 
     def create(self, request, *args, **kwargs):
         try:

@@ -63,8 +63,9 @@ INSTALLED_APPS = [
     'sslserver',
     'rest_framework',
     'corsheaders',
-    'accounts',
+    'django_filters',
 
+    'accounts',
     'data_labeling',
 ]
 
