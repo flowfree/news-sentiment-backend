@@ -3,6 +3,7 @@ from urllib.parse import urlsplit
 from django.db import models
 
 from . import scraper
+from .exceptions import ScraperError
 
 
 class Site(models.Model):
@@ -59,4 +60,4 @@ class News(models.Model):
         try:
             return Site.objects.get(url__startswith=site_url)
         except Site.DoesNotExist:
-            raise ValueError('Site not supported yet.')
+            raise ScraperError(f'{parsed_url.hostname} is not supported yet.')
