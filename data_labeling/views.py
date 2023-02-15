@@ -29,7 +29,7 @@ class NewsViewSet(ModelViewSet):
     serializer_class = NewsSerializer
     renderer_classes = renderers
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['site', 'sentiment']
+    filterset_fields = ['url', 'site', 'sentiment']
 
     def create(self, request, *args, **kwargs):
         try:
