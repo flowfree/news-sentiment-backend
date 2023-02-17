@@ -43,7 +43,7 @@ def get_metadata_from_url(url: str) -> dict:
 
     # Extract the meta tags
     for tag in soup.find_all('meta'):
-        if tag.get('name') == 'description':
+        if tag.get('property') == 'og:description':
             meta['description'] = tag.get('content')
         elif tag.get('property') == 'og:image':
             meta['image_url'] = tag.get('content')
