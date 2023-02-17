@@ -14,6 +14,7 @@ SITE_INITIAL_DATA = [
     ('CryptoNews', 'https://cryptonews.com'),
     ('BeInCrypto', 'https://beincrypto.com'),
     ('crypto.news', 'https://crypto.news'),
+    ('BlockchainNews', 'https://blockchain.news'),
 ]
 
 

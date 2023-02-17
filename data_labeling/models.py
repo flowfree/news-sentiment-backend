@@ -1,4 +1,5 @@
 from urllib.parse import urlsplit 
+import re
 
 from django.db import models
 
@@ -52,6 +53,8 @@ class News(models.Model):
             self.image_url = meta.get('image_url', '')
             self.published_time = meta.get('published_time')
 
+            self.title = self._cleanup_title(self.title)
+
         return super().save(*args, **kwargs)
 
     def _get_site(self, url: str) -> Site:
@@ -61,3 +64,11 @@ class News(models.Model):
             return Site.objects.get(url__startswith=site_url)
         except Site.DoesNotExist:
             raise ScraperError(f'{parsed_url.hostname} is not supported yet.')
+
+    def _cleanup_title(self, t: str) -> str:
+        patterns = [
+            '-\s+Decrypt$',
+        ]
+        for pattern in patterns:
+            t = re.sub(pattern, '', t.strip())
+        return t
