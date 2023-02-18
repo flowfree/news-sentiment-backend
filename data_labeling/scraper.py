@@ -35,14 +35,10 @@ def get_metadata_from_url(url: str) -> dict:
 
     soup = BeautifulSoup(r.text, "html.parser")
 
-    # Extract the title tag
-    try:
-        meta['title'] = soup.find("title").string
-    except Exception:
-        pass
-
     # Extract the meta tags
     for tag in soup.find_all('meta'):
+        if tag.get('property') == 'og:title':
+            meta['title'] = tag.get('content')
         if tag.get('property') == 'og:description':
             meta['description'] = tag.get('content')
         elif tag.get('property') == 'og:image':
