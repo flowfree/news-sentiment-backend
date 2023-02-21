@@ -24,4 +24,5 @@ runsslserver*
 xxx.py
 notes.txt
 *__ARCHIVED.py
+*.csv
 download_historical_data.py
