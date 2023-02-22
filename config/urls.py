@@ -20,6 +20,8 @@ from django.utils import timezone
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
+from news_sentiment.views import GetNewsSentiment
+
 
 class HomeView(APIView):
     def get(self, request, *args, **kwargs):
@@ -31,6 +33,7 @@ class HomeView(APIView):
 
 urlpatterns = [
     path('', HomeView.as_view()),
+    path('news-sentiment', GetNewsSentiment.as_view()),
     path('data-labeling/', include('data_labeling.urls')),
     path('admin/', admin.site.urls),
 ]

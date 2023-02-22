@@ -67,6 +67,7 @@ INSTALLED_APPS = [
 
     'accounts',
     'data_labeling',
+    'news_sentiment',
 ]
 
 MIDDLEWARE = [
@@ -162,5 +163,6 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 12
 }
 
+OPENAI_API_KEY = env('OPENAI_API_KEY')
 
 SAMPLE_QUOTE = env('SAMPLE_QUOTE')

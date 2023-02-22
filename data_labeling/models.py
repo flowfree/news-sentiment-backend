@@ -3,8 +3,8 @@ import re
 
 from django.db import models
 
-from . import scraper
-from .exceptions import ScraperError
+from news_sentiment import scraper
+from news_sentiment.exceptions import ScraperError
 
 
 class Site(models.Model):

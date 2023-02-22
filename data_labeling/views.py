@@ -7,9 +7,9 @@ from djangorestframework_camel_case.render import (
     CamelCaseBrowsableAPIRenderer,
 )
 
+from news_sentiment.exceptions import ScraperError
 from .models import Site, News
 from .serializers import SiteSerializer, NewsSerializer
-from .exceptions import ScraperError
 
 
 if settings.DEBUG:
